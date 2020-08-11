@@ -23,13 +23,14 @@ namespace DocRework
 
             EventHandler = new EventHandler();
             Doc.FinishingRecall += EventHandler.OnFinishingRecall;
-            Srv.RoundEnded += EventHandler.OnRoundEnd;
+            Srv.RoundStarted += EventHandler.OnRoundStart;
         }
 
         public override void OnDisabled()
-        {
+        {   
+            // Unsubscribe events
             Doc.FinishingRecall -= EventHandler.OnFinishingRecall;
-            Srv.RoundEnded -= EventHandler.OnRoundEnd;
+            Srv.RoundStarted -= EventHandler.OnRoundStart;
             EventHandler = null;
         }
     }

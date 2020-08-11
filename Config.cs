@@ -12,10 +12,7 @@ namespace DocRework
         public int Start { get; set; } = 3;
 
         [Description("Message sent to SCP-049 upon reaching the minimum cures amount required")]
-        public string DocMessage { get; set; } = "You now have an area that heals zombies in your area every few seconds!";
-
-        [Description("Message sent to Zombies upon being healed by the doc")]
-        public string ZombieMessage { get; set; } = "You were healed by your Doc.";
+        public string DocMessage { get; set; } = "<color=red>Your passive ability is now activated.\nYou now heal zombies around you every 5 seconds.</color>";
 
         [Description("049's healing radius")]
         public float HealRadius { get; set; } = 2.6f;

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Exiled.API.Features;
+using Hints;
 using MEC;
 using UnityEngine;
 using Player = Exiled.API.Features.Player;
@@ -10,47 +9,50 @@ namespace DocRework
 {
     public class AreaController
     {
+
+        /*
+         * TO DO: Instead of flat hp / heal, make it missing health percentage.
+         * The more the doctor kills the higher the percentage is.
+         * Implement level system.
+        */
+
         public static int CureCounter = 0;
-        public static IEnumerable<Player> Doctors = Player.List.Where(r => r.Role == RoleType.Scp049);
-        private static IEnumerable<Player> Zombies = Player.List.Where(r => r.Role == RoleType.Scp0492);
+        // public static int Level = 1;
         private static float Radius = DocRework.config.HealRadius;
-        private static string HealMessage = DocRework.config.ZombieMessage;
         private static float HealAmount = DocRework.config.HealAmount;
 
         public static IEnumerator<float> EngageBuff()
         {
-            for (; ; )
+            while (true)
             {
                 // Check EVERY zombies' position for EVERY Doctor.
-                foreach (Player D in Doctors)
-                    foreach (Player Z in Zombies)
+                foreach (Player D in Player.List.Where(r => r.Role == RoleType.Scp049))
+                    foreach (Player Z in Player.List.Where(r => r.Role == RoleType.Scp0492))
 
-                        // Check if a Zombie (Z) is inside of a circle drawn around the Doctor (D)
-                        if (IsInsideArea(D.Position.x, D.Position.z, Z.Position.x, Z.Position.z, Radius))
-                            ApplyHealEffects(Z, HealAmount, HealMessage);
+                        // Check if a Zombie (Z) is inside of a aura drawn around the Doctor (D)
+                        if (Vector3.Distance(D.Position, Z.Position) <= Radius)
+                            ApplyHealEffects(Z, HealAmount);
 
                 yield return Timing.WaitForSeconds(5f);
             }
         }
 
-        // Check if the Zombie's coordinates are inside the Doctor's circle.
-        private static bool IsInsideArea(float d_x, float d_z, float z_x, float z_z, float radius)
-        {
-            return Math.Pow(d_x - z_x, 2) + Math.Pow(d_z - z_z,2) < Math.Pow(radius, 2);
-        }
-
         // Do the healing bit and handle broadcasts to zombies.
-        private static void ApplyHealEffects(Player p, float h, string m)
+        private static void ApplyHealEffects(Player p, float h)
         {
-            if(p.Health + h > p.MaxHealth)
+            float HpGiven = 0;
+            if (p.Health + h > p.MaxHealth)
             {
+                HpGiven = p.MaxHealth - p.Health;
                 p.Health = p.MaxHealth;
-                return;
+            } 
+            else
+            {
+                HpGiven = h;
+                p.Health += h;
             }
 
-            p.Health += h;
-            p.ClearBroadcasts();
-            p.Broadcast(3, m, Broadcast.BroadcastFlags.Normal);
+            p.HintDisplay.Show(new TextHint($"<color=red>+{HpGiven} HP</color>", new HintParameter[] { new StringHintParameter("") }, null, 2f));
         }
     }
 }
