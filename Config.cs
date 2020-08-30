@@ -5,7 +5,6 @@ namespace DocRework
 {
     public class Config : IConfig
     {
-        private static ushort cd = SCP049AbilityController.AbilityCooldown;
 
         /*            
          * PLUGIN
@@ -73,7 +72,7 @@ namespace DocRework
         public string Active_NotEnoughRevives { get; set; } = "You don't have enough revives to use this ability!";
 
         [Description("Message sent when you try to execute the .cr command while it's on cooldown")]
-        public string Active_OnCooldown { get; set; } = $"You must wait {cd} seconds before using this ability!";
+        public string Active_OnCooldown { get; set; } = "Can't use this yet! Cooldown remaining: ";
 
         [Description("Message send when there are no spectators to spawn")]
         public string Active_NoSpectators { get; set; } = "Sorry, but we were unable to find any spectators for you. :(";

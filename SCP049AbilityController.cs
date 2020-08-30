@@ -86,7 +86,7 @@ namespace DocRework
         public static void ApplySelfHeal(Player p, float missing)
         {
             float MissingHP = p.MaxHealth - p.Health;
-            if (p.Health + MissingHP * missing > p.MaxEnergy) p.Health = p.MaxHealth; else p.Health += MissingHP * missing;
+            if (p.Health + MissingHP * missing > p.MaxHealth) p.Health = p.MaxHealth; else p.Health += MissingHP * missing;
         }
 
         public static void CallZombieReinforcement(Player p, ushort cd, SendingConsoleCommandEventArgs ev)
@@ -110,7 +110,7 @@ namespace DocRework
             // Pretty self-explanatory i think
             if (cd > 0)
             {
-                ev.ReturnMessage = DocRework.config.Active_OnCooldown;
+                ev.ReturnMessage = DocRework.config.Active_OnCooldown + cd;
                 return;
             }
 
