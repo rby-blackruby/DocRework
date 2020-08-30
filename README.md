@@ -9,7 +9,8 @@ Promoting teamwork and providing healthier gameplay, playing as SCP-049 and SCP-
 - Upon reviving a player, SCP-049 gains a percentage of it's missing health back.*
 - SCP-049-2s now deal AOE damage, making them very effective in crowded combats.*
 - Translation options.
-* Only available after reaching the minimum required revives.
+
+*Only available after reaching the minimum required revives.
 
 ## Requirements
 - This plugin uses [EXILED](https://github.com/galaxy119/EXILED/).
