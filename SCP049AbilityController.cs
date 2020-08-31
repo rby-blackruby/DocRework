@@ -97,27 +97,27 @@ namespace DocRework
             // Only 049 is allowed to use this command
             if (p.Role != RoleType.Scp049)
             {
-                ev.ReturnMessage = DocRework.config.Active_PermissionDenied;
+                ev.ReturnMessage = DocRework.config.Translation_Active_PermissionDenied;
                 return;
             }
 
             if (CureCounter < DocRework.config.MinCures)
             {
-                ev.ReturnMessage = DocRework.config.Active_NotEnoughRevives;
+                ev.ReturnMessage = DocRework.config.Translation_Active_NotEnoughRevives;
                 return;
             }
 
             // Pretty self-explanatory i think
             if (cd > 0)
             {
-                ev.ReturnMessage = DocRework.config.Active_OnCooldown + cd;
+                ev.ReturnMessage = DocRework.config.Translation_Active_OnCooldown + cd;
                 return;
             }
 
             // If the list is empty it means no spectators can be chosen.
             if (list.IsEmpty())
             {
-                ev.ReturnMessage = DocRework.config.Active_NoSpectators;
+                ev.ReturnMessage = DocRework.config.Translation_Active_NoSpectators;
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace DocRework
 
             // Notify the Doc that the ability's cd has expired.
             foreach(Player D in Player.List.Where(p => p.Role == RoleType.Scp049))
-                D.HintDisplay.Show(new TextHint(DocRework.config.Active_ReadyNotification, new HintParameter[] { new StringHintParameter("") }, null, 5f));
+                D.HintDisplay.Show(new TextHint(DocRework.config.Translation_Active_ReadyNotification, new HintParameter[] { new StringHintParameter("") }, null, 5f));
 
             // Kill it just for sure.
             Timing.KillCoroutines("SCP049_Active_Cooldown");

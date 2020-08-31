@@ -12,8 +12,8 @@ namespace DocRework
     {
         private static bool AllowDocHeal =                      DocRework.config.AllowDocSelfHeal;
         private static float MissingHealthPercentage =          DocRework.config.DocMissingHealthPercentage;
-        private static bool EnableZombieAOEDamage =             DocRework.config.AllowZombieAOE;
-        private static float ZombieAOEDamage =                  DocRework.config.ZombieAOEDamage;
+        private static bool EnableZombieAOEDamage =             DocRework.config.AllowZombieAoe;
+        private static float ZombieAOEDamage =                  DocRework.config.ZombieAoeDamage;
 
         public static void OnFinishingRecall(FinishingRecallEventArgs ev)
         {
@@ -27,7 +27,7 @@ namespace DocRework
             {
                 // Notify the Doctor that the buff is now active.
                 foreach (Player D in Player.List.Where(r => r.Role == RoleType.Scp049))
-                    D.HintDisplay.Show(new TextHint(DocRework.config.Passive_ActivationMessage, new HintParameter[] { new StringHintParameter("") }, null, 5f));
+                    D.HintDisplay.Show(new TextHint(DocRework.config.Translation_Passive_ActivationMessage, new HintParameter[] { new StringHintParameter("") }, null, 5f));
 
                 // Run the actual EngageBuff corouting every 5 seconds.
                 Timing.RunCoroutine(SCP049AbilityController.EngageBuff(), "SCP049_Passive");
